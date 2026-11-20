@@ -1,0 +1,252 @@
+fileFormatVersion: 2
+guid: 878cd673afa71f94cbb45e72a145328a
+ModelImporter:
+  serializedVersion: 21202
+  internalIDToNameTable: []
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M_MGCrimsonForest.002
+    second: {fileID: 2100000, guid: c5412bd31b7450542bb9e298ebf93c20, type: 2}
+  materials:
+    materialImportMode: 2
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    removeConstantScaleCurves: 1
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 3
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 0
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    sortHierarchyByName: 1
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    nodeNameCollisionStrategy: 1
+    fileIdsGeneration: 2
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    keepQuads: 0
+    weldVertices: 1
+    bakeAxisConversion: 0
+    preserveHierarchy: 0
+    skinWeightsMode: 0
+    maxBonesPerVertex: 4
+    minBoneWeight: 0.001
+    optimizeBones: 1
+    meshOptimizationFlags: -1
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVMarginMethod: 1
+    secondaryUVMinLightmapResolution: 40
+    secondaryUVMinObjectScale: 1
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  referencedClips: []
+  importAnimation: 0
+  humanDescription:
+    serializedVersion: 3
+    human: []
+    skeleton:
+    - name: R_SlendertBot(Clone)
+      parentName: 
+      position: {x: 0, y: 0, z: 0}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: G_SlenderBot
+      parentName: R_SlendertBot(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Root
+      parentName: R_SlendertBot(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Weapon
+      parentName: Root
+      position: {x: 1.3559979, y: 0, z: 0.97232395}
+      rotation: {x: 0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 1, y: 1, z: 1}
+    - name: D-Hips
+      parentName: Root
+      position: {x: -0, y: -0.0032489998, z: 0.987534}
+      rotation: {x: 0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 1, y: 1, z: 1}
+    - name: D-Spine
+      parentName: D-Hips
+      position: {x: -0, y: 0.135731, z: 8.326672e-18}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: D-Chest
+      parentName: D-Spine
+      position: {x: -0, y: 0.160828, z: 9.992007e-18}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: D-Shoulder.L
+      parentName: D-Chest
+      position: {x: -0.030078, y: 0.189997, z: 0.076986}
+      rotation: {x: -0.17863423, y: -0.15983099, z: 0.6005125, w: 0.7628425}
+      scale: {x: 1.0000004, y: 1.0000001, z: 1.0000004}
+    - name: D-Arm.L
+      parentName: D-Shoulder.L
+      position: {x: -0.06584181, y: 0.20630798, z: 0.032667734}
+      rotation: {x: 0.104842745, y: 0.6794688, z: 0.26197234, w: 0.6772744}
+      scale: {x: 1, y: 0.99999994, z: 0.99999994}
+    - name: D-ForArm.L
+      parentName: D-Arm.L
+      position: {x: -0.0000002744538, y: 0.26834127, z: -0.00000020107784}
+      rotation: {x: -0.00040983566, y: 0.0140577555, z: 0.0114124, w: 0.999836}
+      scale: {x: 0.9999995, y: 1.0000004, z: 0.9999992}
+    - name: D-Hand.L
+      parentName: D-ForArm.L
+      position: {x: 0.00000037451912, y: 0.34797305, z: 0.00000032324408}
+      rotation: {x: 0.0000005006302, y: 3.469447e-18, z: 1.3325797e-20, w: 1}
+      scale: {x: 1, y: 1, z: 0.99999994}
+    - name: D-UpperClaw.L
+      parentName: D-Hand.L
+      position: {x: -0.000823668, y: 0.07237748, z: 0.030754194}
+      rotation: {x: -5.399835e-20, y: 2.4367838e-38, z: -4.5127004e-19, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: D-LowerClaw.L
+      parentName: D-Hand.L
+      position: {x: 0.0032557007, y: 0.06054882, z: -0.05282741}
+      rotation: {x: -0.0000015577199, y: -0.025084408, z: 0.0000022814463, w: 0.99968535}
+      scale: {x: 0.99999964, y: 1, z: 1.0000006}
+    - name: D-Shoulder.R
+      parentName: D-Chest
+      position: {x: 0.030078, y: 0.189997, z: 0.076986}
+      rotation: {x: -0.17863423, y: 0.15983099, z: -0.6005125, w: 0.7628425}
+      scale: {x: 1.0000004, y: 1.0000001, z: 1.0000004}
+    - name: D-Arm.R
+      parentName: D-Shoulder.R
+      position: {x: 0.06584181, y: 0.20630798, z: 0.032667734}
+      rotation: {x: 0.104842745, y: -0.6794688, z: -0.26197234, w: 0.6772744}
+      scale: {x: 1, y: 0.99999994, z: 0.99999994}
+    - name: D-ForArm.R
+      parentName: D-Arm.R
+      position: {x: 0.0000002744538, y: 0.26834127, z: -0.00000020107784}
+      rotation: {x: -0.00040983566, y: -0.0140577555, z: -0.0114124, w: 0.999836}
+      scale: {x: 0.9999995, y: 1.0000004, z: 0.9999992}
+    - name: D-Hand.R
+      parentName: D-ForArm.R
+      position: {x: -0.00000037451912, y: 0.34797305, z: 0.00000032324408}
+      rotation: {x: 0.0000005006302, y: -3.469447e-18, z: -1.3325797e-20, w: 1}
+      scale: {x: 1, y: 1, z: 0.99999994}
+    - name: D-UpperClaw.R
+      parentName: D-Hand.R
+      position: {x: 0.000823668, y: 0.07237748, z: 0.030754194}
+      rotation: {x: -5.399835e-20, y: -2.4367838e-38, z: 4.5127004e-19, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: D-LowerClaw.R
+      parentName: D-Hand.R
+      position: {x: -0.0032557007, y: 0.06054882, z: -0.05282741}
+      rotation: {x: -0.0000015577199, y: 0.025084408, z: -0.0000022814463, w: 0.99968535}
+      scale: {x: 0.99999964, y: 1, z: 1.0000006}
+    - name: D-Neck
+      parentName: D-Chest
+      position: {x: -0, y: 0.257433, z: 1.5543122e-17}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: D-Head
+      parentName: D-Neck
+      position: {x: -0, y: 0.098408, z: 0.005012}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: D-Leg.L
+      parentName: D-Hips
+      position: {x: -0.078467, y: 0.023794, z: -0.001111}
+      rotation: {x: -0.00047204035, y: 0.010491667, z: 0.99813837, w: 0.06007965}
+      scale: {x: 1.0000026, y: 1.0000004, z: 1.0000006}
+    - name: D-LoweLeg.L
+      parentName: D-Leg.L
+      position: {x: -0.00000005232473, y: 0.4147553, z: -0.00000022528292}
+      rotation: {x: -0.029361624, y: -0.0043292954, z: 0.0076833954, w: 0.99952996}
+      scale: {x: 1.0000002, y: 0.99999994, z: 0.99999964}
+    - name: D-Foot.L
+      parentName: D-LoweLeg.L
+      position: {x: -0.0000002434966, y: 0.47270313, z: -0.00000020010005}
+      rotation: {x: 0.5315684, y: 0.028902842, z: 0.043777827, w: 0.84538937}
+      scale: {x: 1.0000002, y: 0.9999999, z: 0.9999998}
+    - name: D-Leg.R
+      parentName: D-Hips
+      position: {x: 0.078467, y: 0.023794, z: -0.001111}
+      rotation: {x: 0.00047203986, y: 0.010491666, z: 0.99813837, w: -0.060079586}
+      scale: {x: 1.0000036, y: 1.0000004, z: 1.0000006}
+    - name: D-LoweLeg.R
+      parentName: D-Leg.R
+      position: {x: 0.0000000025769815, y: 0.4147553, z: -0.0000002253941}
+      rotation: {x: -0.029361682, y: 0.0043287957, z: -0.0076833996, w: 0.99952996}
+      scale: {x: 1.0000002, y: 0.99999994, z: 0.99999964}
+    - name: D-Foot.R
+      parentName: D-LoweLeg.R
+      position: {x: 0.00000017608265, y: 0.47270313, z: -0.00000015007666}
+      rotation: {x: 0.53156847, y: -0.028902408, z: -0.043778077, w: 0.84538937}
+      scale: {x: 1.0000002, y: 0.9999999, z: 0.9999998}
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    globalScale: 1
+    rootMotionBoneName: Root
+    hasTranslationDoF: 0
+    hasExtraRoot: 1
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  autoGenerateAvatarMappingIfUnspecified: 1
+  animationType: 2
+  humanoidOversampling: 1
+  avatarSetup: 1
+  addHumanoidExtraRootOnlyWhenUsingAvatar: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 322870
+  packageName: Robot Sentries - 3D Character Mega Pack
+  packageVersion: 1.0
+  assetPath: Assets/SRG Studios/Robot Sentries - 3D Character Mega Pack/Robot Sentries Pack 01/Models/R_HumanoidBot_01.fbx
+  uploadId: 767940

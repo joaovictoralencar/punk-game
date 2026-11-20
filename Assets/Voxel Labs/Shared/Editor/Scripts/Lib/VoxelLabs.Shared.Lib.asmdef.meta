@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 7c220f4375b045fb8213565408ff1768
+AssemblyDefinitionImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 340974
+  packageName: "Ultimate Preview 2 \u2013 Pro Edition"
+  packageVersion: 2.1.0
+  assetPath: Assets/Voxel Labs/Shared/Editor/Scripts/Lib/VoxelLabs.Shared.Lib.asmdef
+  uploadId: 1032460

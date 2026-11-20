@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: 4dae196a72f509d4daa876ee8c7b4da0
+ShaderImporter:
+  externalObjects: {}
+  defaultTextures: []
+  nonModifiableTextures: []
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 340974
+  packageName: "Ultimate Preview 2 \u2013 Pro Edition"
+  packageVersion: 2.1.0
+  assetPath: Assets/Voxel Labs/Shared/Editor/Resources/VoxelLabs.Shared/Preview/Shaders/preview-floor.shader
+  uploadId: 1032460

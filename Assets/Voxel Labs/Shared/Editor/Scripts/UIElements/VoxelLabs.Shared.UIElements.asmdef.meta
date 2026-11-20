@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: a567ca642b53c3a4fb5c9e7a22d48448
+AssemblyDefinitionImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 340974
+  packageName: "Ultimate Preview 2 \u2013 Pro Edition"
+  packageVersion: 2.1.0
+  assetPath: Assets/Voxel Labs/Shared/Editor/Scripts/UIElements/VoxelLabs.Shared.UIElements.asmdef
+  uploadId: 1032460

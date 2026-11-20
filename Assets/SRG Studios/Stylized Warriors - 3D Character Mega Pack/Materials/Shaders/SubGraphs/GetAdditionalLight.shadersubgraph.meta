@@ -1,0 +1,17 @@
+fileFormatVersion: 2
+guid: 50795e0e3985fce4a8a5e0353fcd9393
+ScriptedImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 2
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: 11500000, guid: 60072b568d64c40a485e0fc55012dc9f, type: 3}
+AssetOrigin:
+  serializedVersion: 1
+  productId: 322768
+  packageName: Stylized Island Warriors - 3D Character Mega Pack
+  packageVersion: 1.0
+  assetPath: Assets/SRG Studios/Stylized Warriors - 3D Character Mega Pack/Materials/Shaders/SubGraphs/GetAdditionalLight.shadersubgraph
+  uploadId: 814090

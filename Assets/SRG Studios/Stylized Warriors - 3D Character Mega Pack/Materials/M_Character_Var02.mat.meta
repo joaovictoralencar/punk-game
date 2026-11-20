@@ -1,0 +1,17 @@
+fileFormatVersion: 2
+guid: 32a71db879a167e4c9cad83f6249b99f
+labels:
+- Character
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 322768
+  packageName: Stylized Island Warriors - 3D Character Mega Pack
+  packageVersion: 1.0
+  assetPath: Assets/SRG Studios/Stylized Warriors - 3D Character Mega Pack/Materials/M_Character_Var02.mat
+  uploadId: 814090
