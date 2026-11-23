@@ -12,47 +12,26 @@ MonoBehaviour:
   m_Script: {fileID: -1672295737, guid: d9cf9f7b013668d48943aed5a167ea2a, type: 3}
   m_Name: Thumbnail Settings
   m_EditorClassIdentifier: VoxelLabs.Thumbnails.Core.dll::VoxelLabs.Thumbnails.Core.ThumbnailSettingsProfile
-  <WasCreatedThisSession>k__BackingField: 1
   iconSize: 2
   iconGenerationModeType: 2
   iconBackgroundSettings:
     useTransparentBackground: 1
-    backgroundColor:
-      r: 0.2
-      g: 0.2
-      b: 0.2
-      a: 1
-    vfxBackgroundColor:
-      r: 0.2
-      g: 0.2
-      b: 0.2
-      a: 1
+    backgroundColor: {r: 0.2, g: 0.2, b: 0.2, a: 1}
+    vfxBackgroundColor: {r: 0.2, g: 0.2, b: 0.2, a: 1}
   useCustomRendererProfile: 0
   rendererProfileIndex: 0
   gameObjectIconSettings:
     cameraSettings:
       defaultCameraDirection: {x: 120, y: -20}
-    ambientLightColor:
-      r: 0.66
-      g: 0.66
-      b: 0.66
-      a: 1
+    ambientLightColor: {r: 0.66, g: 0.66, b: 0.66, a: 1}
     additionalLights:
     - enabled: 1
       intensity: 0.25
-      color:
-        r: 1
-        g: 1
-        b: 1
-        a: 1
+      color: {r: 1, g: 1, b: 1, a: 1}
       rotation: {x: 160, y: 0}
     - enabled: 1
       intensity: 0.25
-      color:
-        r: 1
-        g: 1
-        b: 1
-        a: 1
+      color: {r: 1, g: 1, b: 1, a: 1}
       rotation: {x: 20, y: 0}
     matchCanvasSizeToGameView: 1
     canvasResolution: {x: 1920, y: 1080}

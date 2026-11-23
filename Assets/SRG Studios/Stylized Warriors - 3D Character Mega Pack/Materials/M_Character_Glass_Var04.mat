@@ -117,6 +117,7 @@ Material:
     - _DetailAlbedoMapScale: 1
     - _DetailNormalMapScale: 1
     - _DstBlend: 10
+    - _DstBlendAlpha: 10
     - _EmissionFalloff: 0.5
     - _EnvironmentReflections: 1
     - _Factor: 15
@@ -140,10 +141,13 @@ Material:
     - _ReceiveShadows: 1
     - _RedMaskFuzziness: 0
     - _RedMaskRange: 0.5
+    - _ScreenSpaceReflections: 1
+    - _ScreenSpaceReflectionsContributeTransparent: 1
     - _Smoothness: 1
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 5
+    - _SrcBlendAlpha: 1
     - _Surface: 1
     - _WorkflowMode: 1
     - _YellowMaskFuzziness: 0.1
