@@ -4,63 +4,81 @@ using UnityEngine;
 namespace PunkGame
 {
     [DisallowMultipleComponent]
-    [RequireComponent(typeof(Health))]
+    [RequireComponent(typeof(Health), typeof(Rigidbody))]
     public class TrainingDummy : MonoBehaviour
     {
-        [BoxGroup("Configuration")]
+        private const float WallSkinWidth = 0.02f;
+        private const float MaxWalkableWallNormalY = 0.5f;
+
+        [FoldoutGroup("Configuration")]
         [Tooltip("Seconds before the dummy respawns after dying.")]
         [SerializeField, MinValue(0.1f)]
         private float _respawnDelay = 3f;
 
-        [BoxGroup("Configuration")]
+        [FoldoutGroup("Configuration")]
         [Tooltip("Duration of the hit flash in seconds.")]
         [SerializeField, MinValue(0.01f)]
         private float _flashDuration = 0.12f;
 
-        [BoxGroup("Configuration")]
+        [FoldoutGroup("Configuration")]
         [Tooltip("Color applied to renderers when taking damage.")]
         [SerializeField]
         private Color _flashColor = Color.white;
 
-        [BoxGroup("Configuration")]
+        [FoldoutGroup("Configuration")]
+        [Tooltip("Brightness multiplier for the hit flash. Values above 1 make white flashes visible on textured materials.")]
+        [SerializeField, MinValue(1f)]
+        private float _flashIntensity = 3f;
+
+        [FoldoutGroup("Configuration")]
+        [Tooltip("Vfx that will be moved to hit position and enabled.")]
+        [SerializeField]
+        private GameObject _hitVfxPrefab;
+
+        [FoldoutGroup("Configuration")]
         [Tooltip("Optional child root for visuals/colliders. If empty, all renderers and colliders on this hierarchy are toggled on death.")]
         [SerializeField]
         private GameObject _bodyRoot;
 
-        [BoxGroup("Knockback")]
-        [Tooltip("Enables horizontal push when hit by attacks with knockback force.")]
+        [FoldoutGroup("Knockback")]
+        [Tooltip("Enables deterministic kinematic knockback when hit by attacks with knockback force.")]
         [SerializeField]
         private bool _enableKnockback = true;
 
-        [BoxGroup("Knockback")]
-        [Tooltip("Duration of the knockback push in seconds.")]
+        [FoldoutGroup("Knockback")]
+        [Tooltip("Duration of the knockback slide in seconds.")]
         [SerializeField, MinValue(0.01f), EnableIf(nameof(_enableKnockback))]
         private float _knockbackDuration = 0.2f;
 
-        [BoxGroup("Knockback")]
-        [Tooltip("Scales incoming DamageInfo.Knockback force.")]
+        [FoldoutGroup("Knockback")]
+        [Tooltip("Scales incoming DamageInfo.Knockback speed.")]
         [SerializeField, MinValue(0f), EnableIf(nameof(_enableKnockback))]
         private float _knockbackMultiplier = 1f;
 
-        [BoxGroup("Knockback")]
-        [Tooltip("Velocity falloff over the normalized knockback duration (0 to 1).")]
+        [FoldoutGroup("Knockback")]
+        [Tooltip("Speed falloff over the normalized knockback duration (0 to 1).")]
         [SerializeField, EnableIf(nameof(_enableKnockback))]
         private AnimationCurve _knockbackDecay = AnimationCurve.EaseInOut(0f, 1f, 1f, 0f);
 
-        [BoxGroup("Knockback")]
-        [Tooltip("Returns the dummy to its initial spawn position when respawning.")]
+        [FoldoutGroup("Knockback")]
+        [Tooltip("Performs a Rigidbody sweep test so the kinematic dummy stops against walls instead of clipping through them.")]
         [SerializeField, EnableIf(nameof(_enableKnockback))]
-        private bool _resetPositionOnRespawn = true;
+        private bool _stopOnWallCollision = true;
 
-        [BoxGroup("Runtime")]
+        [FoldoutGroup("Knockback")]
+        [Tooltip("Returns the dummy to its initial spawn position and rotation when respawning.")]
+        [SerializeField]
+        private bool _resetTransformOnRespawn = true;
+
+        [FoldoutGroup("Runtime")]
         [ShowInInspector, ReadOnly]
         public bool IsRespawning => _respawnTimer > 0f;
 
-        [BoxGroup("Runtime")]
+        [FoldoutGroup("Runtime")]
         [ShowInInspector, ReadOnly]
         public bool IsKnockedBack => _isKnockedBack;
 
-        [BoxGroup("Runtime")]
+        [FoldoutGroup("Runtime")]
         [ShowInInspector, ReadOnly]
         private float _respawnTimer;
 
@@ -73,12 +91,13 @@ namespace PunkGame
         private static readonly int ColorId = Shader.PropertyToID("_Color");
 
         private Health _health;
-        private CharacterController _characterController;
+        private Rigidbody _rigidbody;
         private Renderer[] _renderers;
         private Collider[] _colliders;
         private MaterialPropertyBlock _propertyBlock;
 
         private Vector3 _spawnPosition;
+        private Quaternion _spawnRotation;
         private float _flashTimer;
         private bool _isFlashing;
 
@@ -87,14 +106,28 @@ namespace PunkGame
         private float _knockbackInitialSpeed;
         private float _knockbackElapsed;
 
+        private void Reset()
+        {
+            var rb = GetComponent<Rigidbody>();
+            if (rb != null)
+            {
+                ConfigureKinematicRigidbody(rb);
+            }
+        }
+
         private void Awake()
         {
             _health = GetComponent<Health>();
-            _characterController = GetComponent<CharacterController>();
+            _rigidbody = GetComponent<Rigidbody>();
             _renderers = GetComponentsInChildren<Renderer>(true);
             _colliders = GetComponentsInChildren<Collider>(true);
             _propertyBlock = new MaterialPropertyBlock();
+
+            ConfigureKinematicRigidbody(_rigidbody);
+
             _spawnPosition = transform.position;
+            _spawnRotation = transform.rotation;
+
         }
 
         private void OnEnable()
@@ -124,11 +157,6 @@ namespace PunkGame
                 }
             }
 
-            if (_isKnockedBack)
-            {
-                TickKnockback(dt);
-            }
-
             if (_respawnTimer > 0f)
             {
                 _respawnTimer -= dt;
@@ -136,6 +164,14 @@ namespace PunkGame
                 {
                     Respawn();
                 }
+            }
+        }
+
+        private void FixedUpdate()
+        {
+            if (_isKnockedBack)
+            {
+                TickKnockback(Time.fixedDeltaTime);
             }
         }
 
@@ -149,11 +185,20 @@ namespace PunkGame
 
             _flashTimer = _flashDuration;
             SetFlash(true);
+            PlayHitVFX(info.HitPoint);
 
             if (_enableKnockback)
             {
-                ApplyKnockback(info.Direction, info.Knockback);
+                ApplyKnockback(info.HitDirection, info.Knockback);
             }
+        }
+
+        private void PlayHitVFX(Vector3 infoHitPoint)
+        {
+            if (_hitVfxPrefab == null) return;
+
+            GameObject hit = Instantiate(_hitVfxPrefab, infoHitPoint, Quaternion.identity);
+            Destroy(hit, 1f);
         }
 
         private void OnDied()
@@ -174,9 +219,11 @@ namespace PunkGame
             _respawnTimer = 0f;
             _isKnockedBack = false;
 
-            if (_resetPositionOnRespawn)
+            if (_resetTransformOnRespawn)
             {
-                TeleportToSpawn();
+                transform.SetPositionAndRotation(_spawnPosition, _spawnRotation);
+                _rigidbody.position = _spawnPosition;
+                _rigidbody.rotation = _spawnRotation;
             }
 
             _health.ResetHealth();
@@ -203,21 +250,27 @@ namespace PunkGame
             _isKnockedBack = true;
         }
 
-        private void TickKnockback(float dt)
+        private void TickKnockback(float fixedDt)
         {
-            _knockbackElapsed += dt;
+            _knockbackElapsed += fixedDt;
             float normalizedTime = Mathf.Clamp01(_knockbackElapsed / _knockbackDuration);
             float currentSpeed = _knockbackInitialSpeed * _knockbackDecay.Evaluate(normalizedTime);
-            Vector3 displacement = _knockbackDirection * (currentSpeed * dt);
+            float stepDistance = currentSpeed * fixedDt;
 
-            if (_characterController != null && _characterController.enabled)
+            if (_stopOnWallCollision && stepDistance > 0f)
             {
-                _characterController.Move(displacement);
+                if (_rigidbody.SweepTest(_knockbackDirection, out RaycastHit hit, stepDistance + WallSkinWidth, QueryTriggerInteraction.Ignore)
+                    && hit.normal.y < MaxWalkableWallNormalY
+                    && Vector3.Dot(hit.normal, _knockbackDirection) < 0f)
+                {
+                    float safeDistance = Mathf.Max(0f, hit.distance - WallSkinWidth);
+                    _rigidbody.MovePosition(_rigidbody.position + _knockbackDirection * safeDistance);
+                    _isKnockedBack = false;
+                    return;
+                }
             }
-            else
-            {
-                transform.position += displacement;
-            }
+
+            _rigidbody.MovePosition(_rigidbody.position + _knockbackDirection * stepDistance);
 
             if (normalizedTime >= 1f)
             {
@@ -225,18 +278,12 @@ namespace PunkGame
             }
         }
 
-        private void TeleportToSpawn()
+        private static void ConfigureKinematicRigidbody(Rigidbody rb)
         {
-            if (_characterController != null && _characterController.enabled)
-            {
-                _characterController.enabled = false;
-                transform.position = _spawnPosition;
-                _characterController.enabled = true;
-            }
-            else
-            {
-                transform.position = _spawnPosition;
-            }
+            rb.isKinematic = true;
+            rb.useGravity = false;
+            rb.interpolation = RigidbodyInterpolation.Interpolate;
+            rb.constraints = RigidbodyConstraints.FreezeRotation;
         }
 
         private void SetFlash(bool active)
@@ -247,8 +294,9 @@ namespace PunkGame
 
             if (active)
             {
-                _propertyBlock.SetColor(BaseColorId, _flashColor);
-                _propertyBlock.SetColor(ColorId, _flashColor);
+                Color flashColor = _flashColor * _flashIntensity;
+                _propertyBlock.SetColor(BaseColorId, flashColor);
+                _propertyBlock.SetColor(ColorId, flashColor);
 
                 for (int i = 0; i < _renderers.Length; i++)
                 {
@@ -311,6 +359,24 @@ namespace PunkGame
         {
             _flashTimer = _flashDuration;
             SetFlash(true);
+        }
+
+        [FoldoutGroup("Debug")]
+        [ButtonGroup("Debug/Actions"), Button("Test Damage (10)")]
+        [EnableIf("@UnityEngine.Application.isPlaying")]
+        private void DebugTestDamage()
+        {
+            var info = new DamageInfo(10f, _health.Team == Team.Player ? Team.Enemy : Team.Player,
+                HitStrength.Light, gameObject, transform.position, -transform.forward, 0f);
+            _health.TakeDamage(in info);
+        }
+
+        [FoldoutGroup("Debug")]
+        [ButtonGroup("Debug/Actions"), Button("Heal (10)")]
+        [EnableIf("@UnityEngine.Application.isPlaying")]
+        private void DebugHeal()
+        {
+            _health.Heal(10f);
         }
 
         [FoldoutGroup("Debug")]

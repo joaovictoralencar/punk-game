@@ -30,6 +30,9 @@ namespace PunkGame
         [FoldoutGroup("References")] [Tooltip("The CharacterMovement component this dodge drives.")] [SerializeField]
         private CharacterMovement _movement;
 
+        [FoldoutGroup("References")] [Tooltip("Optional Health component toggled during the dodge invulnerability window.")] [SerializeField]
+        private Health _health;
+
         #endregion
 
         #region Inspector - Dodge
@@ -49,7 +52,7 @@ namespace PunkGame
         [FoldoutGroup("Dodge")] [Tooltip("A dodge pressed this many seconds before it becomes available is remembered and fired as soon as possible. 0 disables buffering.")] [SerializeField, MinValue(0f)]
         private float _dodgeBufferTime = 0.15f;
 
-        [FoldoutGroup("Dodge")] [Tooltip("Normalized time window (0 to 1) of the dodge during which the character is invulnerable.")] [SerializeField, MinMaxSlider(0f, 1f)]
+        [FoldoutGroup("Dodge")] [Tooltip("Normalized time window (0 to 1) of the dodge during which the character cannot take damage.")] [SerializeField, MinMaxSlider(0f, 1f)]
         private Vector2 _invulnerableWindow = new Vector2(0.1f, 0.6f);
 
         [FoldoutGroup("Dodge")] [Tooltip("If disabled, dodging is only possible while grounded.")] [SerializeField]
@@ -68,6 +71,7 @@ namespace PunkGame
 
         private bool _canDodge = true;
         private bool _isDodging;
+        private bool _invulnerabilityApplied;
         private float _dodgeTimer;
         private float _lastDodgeProgress;
         private float _nextDodgeTime;
@@ -88,19 +92,10 @@ namespace PunkGame
         [ShowInInspector, ReadOnly]
         public bool IsDodging => _isDodging;
 
-        /// <summary>True while the dodge is inside its invulnerability window. Use it in your damage code.</summary>
+        /// <summary>True while the dodge is inside its invulnerability window.</summary>
         [FoldoutGroup("Runtime")]
         [ShowInInspector, ReadOnly]
-        public bool IsInvulnerable
-        {
-            get
-            {
-                if (!_isDodging) return false;
-
-                float t = _dodgeTimer / _dodgeDuration;
-                return t >= _invulnerableWindow.x && t <= _invulnerableWindow.y;
-            }
-        }
+        public bool IsInvulnerable => _invulnerabilityApplied;
 
         public bool CanDodge => _canDodge;
 
@@ -121,17 +116,20 @@ namespace PunkGame
         private void Reset()
         {
             _movement = GetComponent<CharacterMovement>();
+            _health = GetComponent<Health>();
         }
 
         private void Awake()
         {
             if (!_movement) _movement = GetComponent<CharacterMovement>();
+            if (!_health) _health = GetComponent<Health>();
         }
 
         private void OnDisable()
         {
             _hasBufferedDodge = false;
             if (_isDodging) EndDodge();
+            ReleaseInvulnerability();
         }
 
         private void Update()
@@ -215,6 +213,8 @@ namespace PunkGame
             _currentIntendedSpeed = 0f;
             _hasBufferedDodge = false;
 
+            UpdateInvulnerability(0f);
+
             Dodged?.Invoke(_dodgeDirection);
             return true;
         }
@@ -238,6 +238,8 @@ namespace PunkGame
 
             _dodgeTimer += Time.deltaTime;
             float t = Mathf.Clamp01(_dodgeTimer / _dodgeDuration);
+
+            UpdateInvulnerability(t);
 
             float progress = _dodgeCurve.Evaluate(t);
             float step = (progress - _lastDodgeProgress) * _dodgeDistance;
@@ -270,6 +272,8 @@ namespace PunkGame
             _isDodging = false;
             _nextDodgeTime = Time.time + _dodgeCooldown;
 
+            ReleaseInvulnerability();
+
             if (_movement)
             {
                 _movement.ClearHorizontalVelocityOverride();
@@ -279,6 +283,42 @@ namespace PunkGame
             }
 
             DodgeEnded?.Invoke();
+        }
+
+        #endregion
+
+        #region Invulnerability
+
+        private void UpdateInvulnerability(float normalizedTime)
+        {
+            bool insideWindow = _isDodging
+                                && normalizedTime >= _invulnerableWindow.x
+                                && normalizedTime <= _invulnerableWindow.y;
+
+            if (insideWindow)
+            {
+                ApplyInvulnerability();
+            }
+            else
+            {
+                ReleaseInvulnerability();
+            }
+        }
+
+        private void ApplyInvulnerability()
+        {
+            if (_invulnerabilityApplied) return;
+
+            _invulnerabilityApplied = true;
+            if (_health) _health.SetCanTakeDamage(false);
+        }
+
+        private void ReleaseInvulnerability()
+        {
+            if (!_invulnerabilityApplied) return;
+
+            _invulnerabilityApplied = false;
+            if (_health) _health.SetCanTakeDamage(true);
         }
 
         #endregion
