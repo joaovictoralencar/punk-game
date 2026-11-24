@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: 7737184754329570638}
   - component: {fileID: 5991235508368241172}
   - component: {fileID: 6553248669521378652}
+  - component: {fileID: 8665305152561954165}
   m_Layer: 0
   m_Name: pfb_Player
   m_TagString: Untagged
@@ -227,6 +228,7 @@ MonoBehaviour:
   _inputHandler: {fileID: 7232629579604199785}
   _movement: {fileID: 7737184754329570638}
   _dodge: {fileID: 5991235508368241172}
+  _attack: {fileID: 8665305152561954165}
   _cameraTransform: {fileID: 0}
 --- !u!114 &7737184754329570638
 MonoBehaviour:
@@ -311,6 +313,34 @@ MonoBehaviour:
   _maxHealth: 100
   _team: 0
   _debugLogs: 0
+--- !u!114 &8665305152561954165
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4058713905609368519}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e6cee8e8dc52ccd4ba82956ec8b6df6f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PunkGame.CharacterAttack
+  _hitbox: {fileID: 5104548894171702989}
+  _movement: {fileID: 7737184754329570638}
+  _health: {fileID: 6553248669521378652}
+  _dodge: {fileID: 5991235508368241172}
+  _steps:
+  - Name: Light Start
+    Strength: 0
+    Damage: 10
+    Knockback: 5
+    Clip: {fileID: -2807887025256620907, guid: 573f086560c3b0c4fb34b8e2b5b7a865, type: 3}
+    BlendDuration: 0.1
+    StateNameOverride: 
+    SafetyDuration: 1.5
+  _comboInputBufferTime: 0.15
+  _debugLogs: 0
+  _debugOverlay: 0
 --- !u!1 &5037228768986394650
 GameObject:
   m_ObjectHideFlags: 0
@@ -389,6 +419,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Scripts.PlayerAnimations
   _animator: {fileID: 9067346247354164935}
   _characterMovement: {fileID: 7737184754329570638}
+  _attack: {fileID: 0}
+  _health: {fileID: 0}
+  _attackLayerIndex: 0
   _dodge: {fileID: 5991235508368241172}
 --- !u!1001 &1976885219769073435
 PrefabInstance:
@@ -456,6 +489,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 924322122637260911, guid: 3e298bcd279f34643891066133cc250a, type: 3}
   m_PrefabInstance: {fileID: 1976885219769073435}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &5104548894171702989 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6753234016016112086, guid: 3e298bcd279f34643891066133cc250a, type: 3}
+  m_PrefabInstance: {fileID: 1976885219769073435}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8fda46cf015588545b963e23c8a18336, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PunkGame.WeaponHitbox
 --- !u!1001 &4295916599926973163
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -512,6 +556,10 @@ PrefabInstance:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: 0d3740f4ce7069343bb5771537d28ce6, type: 2}
+    - target: {fileID: 5065289798338331692, guid: fed352fefc7333b42ae6ad70d34839f0, type: 3}
+      propertyPath: m_ApplyRootMotion
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 942543504193835190, guid: fed352fefc7333b42ae6ad70d34839f0, type: 3}
     - {fileID: 263992403018782604, guid: fed352fefc7333b42ae6ad70d34839f0, type: 3}
@@ -520,7 +568,10 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 2405792219983805366, guid: fed352fefc7333b42ae6ad70d34839f0, type: 3}
       insertIndex: 0
       addedObject: {fileID: 1710405446018926452}
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 7879218389552163508, guid: fed352fefc7333b42ae6ad70d34839f0, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5949619359140316929}
   m_SourcePrefab: {fileID: 100100000, guid: fed352fefc7333b42ae6ad70d34839f0, type: 3}
 --- !u!4 &1944778938850056541 stripped
 Transform:
@@ -532,6 +583,27 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 890259767286994287, guid: fed352fefc7333b42ae6ad70d34839f0, type: 3}
   m_PrefabInstance: {fileID: 4295916599926973163}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &6252880855042263135 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7879218389552163508, guid: fed352fefc7333b42ae6ad70d34839f0, type: 3}
+  m_PrefabInstance: {fileID: 4295916599926973163}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &5949619359140316929
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6252880855042263135}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af270325bc8a4fb3b53b5714113bcd8a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PunkGame.AnimationEventRelay
+  _animator: {fileID: 9067346247354164935}
+  _attack: {fileID: 8665305152561954165}
+  _movement: {fileID: 7737184754329570638}
+  _debugLogs: 1
 --- !u!95 &9067346247354164935 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 5065289798338331692, guid: fed352fefc7333b42ae6ad70d34839f0, type: 3}

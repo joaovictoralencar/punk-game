@@ -16,7 +16,7 @@ namespace PunkGame
 
         #region Inspector - References
 
-        [FoldoutGroup("References")] [Tooltip("Provides the raw 2D movement input and the jump/dodge events.")] [SerializeField]
+        [FoldoutGroup("References")] [Tooltip("Provides the raw 2D movement input and the jump/dodge/attack events.")] [SerializeField]
         private PlayerInputHandler _inputHandler;
 
         [FoldoutGroup("References")] [Tooltip("The movement component this controller drives.")] [SerializeField]
@@ -25,6 +25,8 @@ namespace PunkGame
         [FoldoutGroup("References")] [Tooltip("The dodge component.")] [SerializeField]
         private CharacterDodge _dodge;
 
+        [FoldoutGroup("References")] [Tooltip("The attack component.")] [SerializeField]
+        private CharacterAttack _attack;
 
         [FoldoutGroup("References")] [Tooltip("Optional. Transform movement is relative to. If empty, Camera.main is used (the camera driven by the Cinemachine Brain).")] [SerializeField]
         private Transform _cameraTransform;
@@ -43,6 +45,8 @@ namespace PunkGame
         {
             _inputHandler = GetComponent<PlayerInputHandler>();
             _movement = GetComponent<CharacterMovement>();
+            _dodge = GetComponent<CharacterDodge>();
+            _attack = GetComponent<CharacterAttack>();
         }
 
         private void Awake()
@@ -57,6 +61,7 @@ namespace PunkGame
             _inputHandler.InputMovementChanged += OnInputMovementChanged;
             _inputHandler.JumpPerformed += OnJump;
             _inputHandler.DodgePerformed += OnDodge;
+            _inputHandler.AttackPerformed += OnAttack;
         }
 
         private void OnDisable()
@@ -66,6 +71,7 @@ namespace PunkGame
                 _inputHandler.InputMovementChanged -= OnInputMovementChanged;
                 _inputHandler.JumpPerformed -= OnJump;
                 _inputHandler.DodgePerformed -= OnDodge;
+                _inputHandler.AttackPerformed -= OnAttack;
             }
 
             _moveInput = Vector2.zero;
@@ -96,13 +102,18 @@ namespace PunkGame
 
         private void OnDodge(Vector2 input)
         {
-            if (!_movement) return;
+            if (!_movement || !_dodge) return;
 
             Vector3 direction = input.sqrMagnitude >= MinDodgeInputSqrMagnitude
                 ? GetCameraRelativeDirection(input)
                 : Vector3.zero; // Zero makes the movement component dodge forward.
 
             _dodge.Dodge(direction);
+        }
+
+        private void OnAttack()
+        {
+            if (_attack) _attack.TryAttack();
         }
 
         #endregion

@@ -60,7 +60,7 @@ namespace PunkGame
 
         #region Inspector - Debug
 
-        [FoldoutGroup("Debug")] [Tooltip("Draws the desired direction (red) and current velocity (cyan) as gizmos.")] [SerializeField]
+        [FoldoutGroup("Debug")] [Tooltip("Draws desired direction (red), velocity (cyan), root motion (magenta), and status overlay.")] [SerializeField]
         private bool _debugMovement;
 
         #endregion
@@ -78,6 +78,11 @@ namespace PunkGame
 
         // External horizontal velocity override (used by Dodge, Attack lunges, Knockback, etc.)
         private Vector3? _overrideHorizontalVelocity;
+
+        // External horizontal root motion displacement (fed by AnimationEventRelay from OnAnimatorMove)
+        private bool _isRootMotionActive;
+        private Vector3 _pendingRootDelta;
+        private Vector3 _lastAppliedRootDelta;
 
         #endregion
 
@@ -103,7 +108,11 @@ namespace PunkGame
         [ShowInInspector, ReadOnly]
         public bool IsGrounded => _isGrounded;
 
-        /// <summary>World-space velocity the character wants to walk at (before gravity). Zero while locked.</summary>
+        [FoldoutGroup("Runtime")]
+        [ShowInInspector, ReadOnly]
+        public bool IsRootMotionActive => _isRootMotionActive;
+
+        /// <summary>World-space velocity the character wants to walk at (before gravity). Zero while locked or driven by root motion.</summary>
         [FoldoutGroup("Runtime")]
         [ShowInInspector, ReadOnly]
         public Vector3 DesiredMoveSpeed { get; private set; }
@@ -138,6 +147,7 @@ namespace PunkGame
         {
             _moveDirection = Vector3.zero;
             _overrideHorizontalVelocity = null;
+            SetRootMotion(false);
         }
 
         private void Update()
@@ -186,6 +196,23 @@ namespace PunkGame
             _overrideHorizontalVelocity = null;
         }
 
+        /// <summary>Enables or disables external root motion displacement and clears any accumulated delta.</summary>
+        public void SetRootMotion(bool active)
+        {
+            _isRootMotionActive = active;
+            _pendingRootDelta = Vector3.zero;
+            _lastAppliedRootDelta = Vector3.zero;
+        }
+
+        /// <summary>Accumulates horizontal world-space root motion displacement to be applied on the next Move().</summary>
+        public void AddRootMotionDelta(Vector3 worldDelta)
+        {
+            if (!_isRootMotionActive) return;
+
+            Vector3 flat = Vector3.ProjectOnPlane(worldDelta, Vector3.up);
+            _pendingRootDelta += flat;
+        }
+
         /// <summary>Immediately snaps the character's Y-axis rotation to face a world-space direction.</summary>
         public void SetRotationImmediate(Vector3 worldDirection)
         {
@@ -214,7 +241,7 @@ namespace PunkGame
         {
             Vector3 desired = Vector3.zero;
 
-            if (CanMove && _moveDirection.sqrMagnitude > MinDirectionSqrMagnitude)
+            if (CanMove && !_isRootMotionActive && _moveDirection.sqrMagnitude > MinDirectionSqrMagnitude)
             {
                 desired = _moveDirection * _movementSpeed;
             }
@@ -242,7 +269,21 @@ namespace PunkGame
         private void Move()
         {
             if (!_characterController) return;
-            _characterController.Move(_velocity * Time.deltaTime);
+
+            Vector3 displacement = _velocity * Time.deltaTime;
+
+            if (_isRootMotionActive)
+            {
+                displacement += _pendingRootDelta;
+                _lastAppliedRootDelta = _pendingRootDelta;
+                _pendingRootDelta = Vector3.zero;
+            }
+            else
+            {
+                _lastAppliedRootDelta = Vector3.zero;
+            }
+
+            _characterController.Move(displacement);
         }
 
         #endregion
@@ -292,7 +333,22 @@ namespace PunkGame
 
         #endregion
 
-        #region Gizmos
+        #region Debug & Gizmos
+
+        [FoldoutGroup("Debug")]
+        [Button("Toggle Root Motion")]
+        [EnableIf("@UnityEngine.Application.isPlaying")]
+        private void DebugToggleRootMotion()
+        {
+            SetRootMotion(!_isRootMotionActive);
+        }
+
+        private void OnGUI()
+        {
+            if (!_debugMovement) return;
+
+            GUI.Label(new Rect(12f, 12f, 220f, 24f), $"Root motion: {(_isRootMotionActive ? "on" : "off")}");
+        }
 
 #if UNITY_EDITOR
         private void OnDrawGizmosSelected()
@@ -311,6 +367,21 @@ namespace PunkGame
             Gizmos.DrawRay(transform.position, DesiredMoveSpeed);
             Gizmos.color = Color.cyan;
             Gizmos.DrawRay(transform.position, _velocity);
+
+            if (_isRootMotionActive && _lastAppliedRootDelta.sqrMagnitude > 0f)
+            {
+                Gizmos.color = Color.magenta;
+                Vector3 rootVelocity = Time.deltaTime > 0f ? _lastAppliedRootDelta / Time.deltaTime : _lastAppliedRootDelta;
+                Vector3 origin = transform.position + Vector3.up * 0.1f;
+                Vector3 tip = origin + rootVelocity;
+
+                Gizmos.DrawLine(origin, tip);
+
+                Vector3 dir = rootVelocity.normalized;
+                Vector3 right = Vector3.Cross(Vector3.up, dir) * 0.15f;
+                Gizmos.DrawLine(tip, tip - dir * 0.25f + right);
+                Gizmos.DrawLine(tip, tip - dir * 0.25f - right);
+            }
         }
 #endif
 
