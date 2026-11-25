@@ -166,6 +166,9 @@ GameObject:
   - component: {fileID: 6252848708691624859}
   - component: {fileID: 6390478465292794316}
   - component: {fileID: 3930990619678850485}
+  - component: {fileID: 953634589427702484}
+  - component: {fileID: 955190050730611660}
+  - component: {fileID: 6709254576111282652}
   m_Layer: 7
   m_Name: pfb_EnemyBase
   m_TagString: Untagged
@@ -255,7 +258,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PunkGame.CharacterMovement
   _characterController: {fileID: 3684052843296520280}
-  _movementSpeed: 5
+  _movementSpeed: 3
   _rotationSpeed: 15
   _jumpHeight: 1.5
   _gravityMultiplier: 2
@@ -359,8 +362,88 @@ MonoBehaviour:
   _movement: {fileID: 4917107519294178779}
   _health: {fileID: 5049580343150955587}
   _dodge: {fileID: 0}
-  _steps: []
+  _steps:
+  - Name: Chomp Attack
+    Strength: 0
+    Damage: 10
+    Knockback: 5
+    Clip: {fileID: -1873909330396474392, guid: 9ca58b018866e3f468da310e237ee774, type: 3}
+    BlendDuration: 0.1
+    StateNameOverride: 
+    SafetyDuration: 1.5
   _comboInputBufferTime: 0.15
-  _allowMovementCancel: 1
+  _allowMovementCancel: 0
   _debugLogs: 0
   _debugOverlay: 0
+--- !u!195 &953634589427702484
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3446239181153059215}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: 0
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
+--- !u!114 &955190050730611660
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3446239181153059215}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6910363c2be2d548a3b3660fdbe0665, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PunkGame.EnemyAIMovement
+  _agent: {fileID: 953634589427702484}
+  _movement: {fileID: 4917107519294178779}
+  _patrolRadius: 8
+  _patrolWaitRange: {x: 1, y: 3}
+  _patrolArrivalDistance: 0.5
+  _patrolMinDistance: 2
+  _patrolSampleAttempts: 8
+  _patrolSampleMaxDistance: 2
+  _repathInterval: 0.2
+  _stoppingDistance: 1.5
+  _turnSpeed: 10
+  _debugLogs: 0
+  _drawGizmos: 1
+--- !u!114 &6709254576111282652
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3446239181153059215}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 947e9dd2850055a4093289a895aa39ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PunkGame.EnemyBrain
+  _movement: {fileID: 955190050730611660}
+  _attack: {fileID: 3930990619678850485}
+  _health: {fileID: 5049580343150955587}
+  _initialTarget: {fileID: 0}
+  _sightRange: 12
+  _loseRange: 18
+  _attackRange: 2
+  _leashRange: 3
+  _facingAngle: 30
+  _maxComboSteps: 1
+  _attackCooldown: 1
+  _cooldownVariance: 0.5
+  _debugLogs: 0

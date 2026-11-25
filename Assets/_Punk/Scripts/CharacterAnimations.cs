@@ -121,15 +121,18 @@ namespace PunkGame
 
         protected virtual void OnGroundedChanged(bool isGrounded)
         {
-            if (!_animator) return;
+            if (!HasParameter(GroundedHash, AnimatorControllerParameterType.Bool)) return;
 
             _animator.SetBool(GroundedHash, isGrounded);
-            if (isGrounded) _animator.ResetTrigger(JumpHash);
+            if (isGrounded && HasParameter(JumpHash, AnimatorControllerParameterType.Trigger))
+            {
+                _animator.ResetTrigger(JumpHash);
+            }
         }
 
         protected virtual void OnSpeedChanged(Vector3 speedVector)
         {
-            if (!_animator) return;
+            if (!HasParameter(SpeedHash, AnimatorControllerParameterType.Float)) return;
 
             float speed = speedVector.magnitude;
             if (Mathf.Approximately(speed, 0f)) speed = 0f;
@@ -139,7 +142,7 @@ namespace PunkGame
 
         protected virtual void OnJump()
         {
-            if (!_animator) return;
+            if (!HasParameter(JumpHash, AnimatorControllerParameterType.Trigger)) return;
 
             _animator.SetTrigger(JumpHash);
         }
@@ -160,7 +163,7 @@ namespace PunkGame
 
         protected virtual void OnDamaged(DamageInfo info)
         {
-            if (!_animator) return;
+            if (!HasParameter(HitHash, AnimatorControllerParameterType.Trigger)) return;
 
             // Skip hit flinch if this blow was lethal so the Hit trigger doesn't stay queued over Die.
             if (_health != null && !_health.IsAlive) return;
@@ -172,8 +175,15 @@ namespace PunkGame
         {
             if (!_animator) return;
 
-            _animator.ResetTrigger(HitHash);
-            _animator.SetTrigger(DieHash);
+            if (HasParameter(HitHash, AnimatorControllerParameterType.Trigger))
+            {
+                _animator.ResetTrigger(HitHash);
+            }
+
+            if (HasParameter(DieHash, AnimatorControllerParameterType.Trigger))
+            {
+                _animator.SetTrigger(DieHash);
+            }
         }
 
         #endregion
@@ -189,6 +199,19 @@ namespace PunkGame
             }
 
             return hash;
+        }
+
+        private bool HasParameter(int hash, AnimatorControllerParameterType type)
+        {
+            if (!_animator) return false;
+
+            AnimatorControllerParameter[] parameters = _animator.parameters;
+            for (int i = 0; i < parameters.Length; i++)
+            {
+                if (parameters[i].nameHash == hash && parameters[i].type == type) return true;
+            }
+
+            return false;
         }
 
         #endregion
