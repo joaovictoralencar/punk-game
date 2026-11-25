@@ -523,7 +523,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8665305152561954165, guid: dc524b9913ac5e1419afd679f6bab623, type: 3}
       propertyPath: _steps.Array.data[3].Knockback
-      value: 5
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 8665305152561954165, guid: dc524b9913ac5e1419afd679f6bab623, type: 3}
       propertyPath: _steps.Array.data[1].BlendDuration
