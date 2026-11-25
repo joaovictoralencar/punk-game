@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace PunkGame
 {
-// Runs after controllers (order 0) and action drivers like Dodge/Attack (order 5)
+// Runs after controllers (order 0) and action drivers like Dodge/Attack/Knockback (order 5)
 // so velocity overrides set this frame are applied on the exact same frame.
     [DefaultExecutionOrder(10)]
     [RequireComponent(typeof(CharacterController))]
@@ -71,12 +71,12 @@ namespace PunkGame
         private Vector3 _velocity;
         private bool _isGrounded;
 
-        // Locks are counters so several systems (Dodge, Attack, Stun) can lock without overriding each other.
+        // Locks are counters so several systems (Dodge, Attack, Death) can lock without overriding each other.
         private int _moveLocks;
         private int _rotateLocks;
         private int _jumpLocks;
 
-        // External horizontal velocity override (used by Dodge, Attack lunges, Knockback, etc.)
+        // External horizontal velocity override (used by Dodge, Knockback, Attack lunges, etc.)
         private Vector3? _overrideHorizontalVelocity;
 
         // External horizontal root motion displacement (fed by AnimationEventRelay from OnAnimatorMove)
@@ -145,13 +145,28 @@ namespace PunkGame
 
         private void OnDisable()
         {
+            // Full reset so a deactivated and reactivated character (reused enemy) starts clean:
+            // no stale locks from death, no leftover downward velocity, no leftover override.
             _moveDirection = Vector3.zero;
+            _velocity = Vector3.zero;
             _overrideHorizontalVelocity = null;
+            _moveLocks = 0;
+            _rotateLocks = 0;
+            _jumpLocks = 0;
+            DesiredMoveSpeed = Vector3.zero;
+
+            // IsGroundedChanged only fires on change. Forcing false makes it fire again on the first frame
+            // after re-enable, so the Animator Grounded parameter is refreshed.
+            _isGrounded = false;
+
             SetRootMotion(false);
         }
 
         private void Update()
         {
+            // A disabled controller (dead character) cannot move. Skip everything so gravity does not pile up.
+            if (_characterController && !_characterController.enabled) return;
+
             UpdateGrounded();
             UpdateDesiredMovement();
             ApplyHorizontalVelocity();
@@ -182,7 +197,7 @@ namespace PunkGame
         }
 
         /// <summary>
-        /// Overrides walking velocity with an external world-space horizontal velocity (e.g. Dodge, Attack lunge).
+        /// Overrides walking velocity with an external world-space horizontal velocity (e.g. Dodge, Knockback, Attack lunge).
         /// Gravity still applies normally.
         /// </summary>
         public void SetHorizontalVelocityOverride(Vector3 worldVelocity)

@@ -321,6 +321,18 @@ namespace PunkGame
             ComboReset?.Invoke();
         }
 
+        /// <summary>
+        /// True when a hit of the given strength would cancel the current step (a Light step hit by a Heavy blow).
+        /// Always false when not attacking. Used by CharacterKnockback to decide whether a hit pushes a swinging enemy.
+        /// </summary>
+        public bool CanBeInterruptedBy(HitStrength incoming)
+        {
+            AttackStep step = CurrentStep;
+            return step != null
+                   && step.Strength == HitStrength.Light
+                   && incoming == HitStrength.Heavy;
+        }
+
         #endregion
 
         #region Animation Event Handlers
@@ -509,14 +521,6 @@ namespace PunkGame
 
                 Cancel();
             }
-        }
-
-        private bool CanBeInterruptedBy(HitStrength incoming)
-        {
-            AttackStep step = CurrentStep;
-            return step != null
-                   && step.Strength == HitStrength.Light
-                   && incoming == HitStrength.Heavy;
         }
 
         #endregion
