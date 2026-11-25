@@ -49,15 +49,15 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -7607105107262990442, guid: a20a6a1b173848718c03cfb028af02f9, type: 3}
-      propertyPath: m_Materials.Array.data[0]
+      propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: 9cdde940ae3a434997104a7027ea636b, type: 2}
     - target: {fileID: -6578176669273608130, guid: a20a6a1b173848718c03cfb028af02f9, type: 3}
-      propertyPath: m_Materials.Array.data[0]
+      propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: 9cdde940ae3a434997104a7027ea636b, type: 2}
     - target: {fileID: -2665408373207728019, guid: a20a6a1b173848718c03cfb028af02f9, type: 3}
-      propertyPath: m_Materials.Array.data[0]
+      propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: 9cdde940ae3a434997104a7027ea636b, type: 2}
     - target: {fileID: 919132149155446097, guid: a20a6a1b173848718c03cfb028af02f9, type: 3}
@@ -65,7 +65,7 @@ PrefabInstance:
       value: Barrel_3
       objectReference: {fileID: 0}
     - target: {fileID: 8793155357389498171, guid: a20a6a1b173848718c03cfb028af02f9, type: 3}
-      propertyPath: m_Materials.Array.data[0]
+      propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: 9cdde940ae3a434997104a7027ea636b, type: 2}
     m_RemovedComponents: []
@@ -74,15 +74,15 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: a20a6a1b173848718c03cfb028af02f9, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 4919707303238835049}
+      addedObject: {fileID: 6962534224254190818}
   m_SourcePrefab: {fileID: 100100000, guid: a20a6a1b173848718c03cfb028af02f9, type: 3}
 --- !u!1 &3000711653135271433 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: a20a6a1b173848718c03cfb028af02f9, type: 3}
   m_PrefabInstance: {fileID: 2694773843478575960}
   m_PrefabAsset: {fileID: 0}
---- !u!64 &4919707303238835049
-MeshCollider:
+--- !u!65 &6962534224254190818
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -99,7 +99,6 @@ MeshCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: -350393026860214683, guid: a20a6a1b173848718c03cfb028af02f9, type: 3}
+  serializedVersion: 3
+  m_Size: {x: 1.0404202, y: 1.2000006, z: 1.0379729}
+  m_Center: {x: 0, y: 0.6000003, z: 0.00000017881393}

@@ -29,12 +29,7 @@ namespace PunkGame
         [Tooltip("Brightness multiplier for the hit flash. Values above 1 make white flashes visible on textured materials.")]
         [SerializeField, MinValue(1f)]
         private float _flashIntensity = 3f;
-
-        [FoldoutGroup("Configuration")]
-        [Tooltip("Vfx that will be moved to hit position and enabled.")]
-        [SerializeField]
-        private GameObject _hitVfxPrefab;
-
+        
         [FoldoutGroup("Configuration")]
         [Tooltip("Optional child root for visuals/colliders. If empty, all renderers and colliders on this hierarchy are toggled on death.")]
         [SerializeField]
@@ -185,20 +180,11 @@ namespace PunkGame
 
             _flashTimer = _flashDuration;
             SetFlash(true);
-            PlayHitVFX(info.HitPoint);
 
             if (_enableKnockback)
             {
                 ApplyKnockback(info.HitDirection, info.Knockback);
             }
-        }
-
-        private void PlayHitVFX(Vector3 infoHitPoint)
-        {
-            if (_hitVfxPrefab == null) return;
-
-            GameObject hit = Instantiate(_hitVfxPrefab, infoHitPoint, Quaternion.identity);
-            Destroy(hit, 1f);
         }
 
         private void OnDied()

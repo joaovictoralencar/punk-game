@@ -267,7 +267,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CharacterDodge
   _movement: {fileID: 7737184754329570638}
   _health: {fileID: 6553248669521378652}
-  _dodgeDistance: 8
+  _dodgeDistance: 6
   _dodgeDuration: 0.85
   _dodgeCurve:
     serializedVersion: 2
@@ -276,11 +276,20 @@ MonoBehaviour:
       time: 0
       value: 0
       inSlope: 2
-      outSlope: 2
-      tangentMode: 0
+      outSlope: Infinity
+      tangentMode: 97
       weightedMode: 0
       inWeight: 0
       outWeight: 0
+    - serializedVersion: 3
+      time: 0.1
+      value: 0
+      inSlope: 1.8609164
+      outSlope: 1.8609164
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
     - serializedVersion: 3
       time: 1
       value: 1
@@ -330,15 +339,32 @@ MonoBehaviour:
   _health: {fileID: 6553248669521378652}
   _dodge: {fileID: 5991235508368241172}
   _steps:
-  - Name: Light Start
+  - Name: 1
     Strength: 0
     Damage: 10
-    Knockback: 5
-    Clip: {fileID: -2807887025256620907, guid: 573f086560c3b0c4fb34b8e2b5b7a865, type: 3}
-    BlendDuration: 0.1
+    Knockback: 2
+    Clip: {fileID: 7400000, guid: 3558db8e6c045c3418d8e7593f8a88de, type: 3}
+    BlendDuration: 0.2
+    StateNameOverride: 
+    SafetyDuration: 1.5
+  - Name: 2
+    Strength: 0
+    Damage: 15
+    Knockback: 3
+    Clip: {fileID: 7400000, guid: f5aa16e8d7347d14ba16d52fe4b7921c, type: 3}
+    BlendDuration: 0.2
+    StateNameOverride: 
+    SafetyDuration: 1.5
+  - Name: 4
+    Strength: 1
+    Damage: 25
+    Knockback: 10
+    Clip: {fileID: 7400000, guid: 210680178f4ec7045b47ffeeb53bc31d, type: 3}
+    BlendDuration: 0.2
     StateNameOverride: 
     SafetyDuration: 1.5
   _comboInputBufferTime: 0.15
+  _allowMovementCancel: 1
   _debugLogs: 0
   _debugOverlay: 0
 --- !u!1 &5037228768986394650

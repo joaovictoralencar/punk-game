@@ -6,6 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/_Punk/Scenes/Scene_Test_Environment.unity
+    guid: 0f15dc77bc517114ea7f3e208f35e0e1
+  - enabled: 1
     path: Assets/_Punk/Scenes/Scene_Player.unity
     guid: 99c9720ab356a0642a771bea13969a05
   m_configObjects:
