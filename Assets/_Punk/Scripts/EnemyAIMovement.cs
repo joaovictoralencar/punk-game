@@ -74,6 +74,7 @@ namespace PunkGame
         private float _waitUntil;
         private float _nextRepathTime;
         private bool _warnedOffNavMesh;
+        private bool _hasAssignedAvoidancePriority;
 
         public float StoppingDistance => _stoppingDistance;
 
@@ -115,7 +116,12 @@ namespace PunkGame
             if (_agent == null) return;
             _agent.updatePosition = false;
             _agent.updateRotation = false;
-            _agent.obstacleAvoidanceType = ObstacleAvoidanceType.NoObstacleAvoidance;
+            _agent.obstacleAvoidanceType = ObstacleAvoidanceType.HighQualityObstacleAvoidance;
+            if (!_hasAssignedAvoidancePriority)
+            {
+                _agent.avoidancePriority = Random.Range(30, 71);
+                _hasAssignedAvoidancePriority = true;
+            }
         }
 
         public void ResetPatrol()
@@ -226,7 +232,7 @@ namespace PunkGame
                 return;
             }
 
-            Vector3 steer = FlatVector(_agent.steeringTarget - transform.position);
+            Vector3 steer = FlatVector(_agent.desiredVelocity);
             if (steer.sqrMagnitude < MinDirectionSqrMagnitude)
             {
                 _movement.SetMoveDirection(Vector3.zero);

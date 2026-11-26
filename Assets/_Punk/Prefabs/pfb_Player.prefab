@@ -445,8 +445,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Scripts.PlayerAnimations
   _animator: {fileID: 9067346247354164935}
   _characterMovement: {fileID: 7737184754329570638}
-  _attack: {fileID: 0}
-  _health: {fileID: 0}
+  _attack: {fileID: 8665305152561954165}
+  _health: {fileID: 6553248669521378652}
   _attackLayerIndex: 0
   _dodge: {fileID: 5991235508368241172}
 --- !u!1001 &1976885219769073435
