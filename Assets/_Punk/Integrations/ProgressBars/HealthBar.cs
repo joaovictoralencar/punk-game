@@ -2,6 +2,7 @@ using INab.UI;
 using PunkGame.Core.Combat;
 using PunkGame.Presentation;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace PunkGame.UI
 {
@@ -10,6 +11,8 @@ namespace PunkGame.UI
     public sealed class HealthBar : MonoBehaviour
     {
         [SerializeField] private Health _owner;
+
+        public Health Owner => _owner;
 
         [SerializeField] private ProceduralProgressBar _progressBar;
 
@@ -39,6 +42,12 @@ namespace PunkGame.UI
         private void Start()
         {
             if (_owner != null) Refresh();
+            var image = GetComponent<Image>();
+            if (image)
+            {
+                _progressBar.progressBarMaterial = Instantiate(_progressBar.progressBarMaterial);
+                image.material = _progressBar.progressBarMaterial;
+            }
         }
 
         private void OnDisable()

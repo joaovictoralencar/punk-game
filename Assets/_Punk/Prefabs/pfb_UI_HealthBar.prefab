@@ -62,7 +62,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
-  m_Material: {fileID: 2100000, guid: 1f9ba391a877ade44b55bc7390058f9f, type: 2}
+  m_Material: {fileID: 2100000, guid: 0c5004905f2b3994cb783e631f87f8ae, type: 2}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
@@ -93,8 +93,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::INab.UI.ProceduralProgressBar
   enableHelpBoxes: 1
-  config: {fileID: 11400000, guid: c9b0d6dbb5b1020488a6e7a130545a5e, type: 2}
-  progressBarMaterial: {fileID: 2100000, guid: 1f9ba391a877ade44b55bc7390058f9f, type: 2}
+  config: {fileID: 11400000, guid: 9a717e70b48510f4fb887946217f61d9, type: 2}
+  progressBarMaterial: {fileID: 2100000, guid: 0c5004905f2b3994cb783e631f87f8ae, type: 2}
   instantiateMaterialOnStart: 1
   barRenderer: {fileID: 0}
   UseInitialFillAmount: 0
@@ -276,7 +276,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  UseFillImpulse: 0
+  UseFillImpulse: 1
   ImpulseCurveFill:
     serializedVersion: 2
     m_Curve:
@@ -327,7 +327,7 @@ MonoBehaviour:
   OverrideFillOverlayColor: 0
   FillOverlayColor: {r: 0, g: 1, b: 0, a: 1}
   FillOverlayBackgroundColor: {r: 0, g: 1, b: 0, a: 1}
-  UseLossImpulse: 0
+  UseLossImpulse: 1
   ImpulseCurveLoss:
     serializedVersion: 2
     m_Curve:
