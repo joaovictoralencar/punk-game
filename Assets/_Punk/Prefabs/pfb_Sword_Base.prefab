@@ -96,7 +96,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8fda46cf015588545b963e23c8a18336, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PunkGame.WeaponHitbox
+  m_EditorClassIdentifier: PunkGame.Gameplay::PunkGame.Combat.WeaponHitbox
   _ownerHealth: {fileID: 0}
   _collider: {fileID: 187903581562235409}
   _drawGizmos: 1
@@ -115,6 +115,6 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 21fbeb9928fe8c544a4a0fa553c1bcdd, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PunkGame.AttackHitVFX
+  m_EditorClassIdentifier: PunkGame.Gameplay::PunkGame.Presentation.AttackHitVFX
   _hitbox: {fileID: 7336811704632278737}
   _hitVFXPrefab: {fileID: 6263782476919498309, guid: 215615f2ad269164680861e3ec2000f7, type: 3}

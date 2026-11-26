@@ -43,7 +43,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cbbed1c04f9e40840bc9b9bc44a3fe37, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PunkGame.CharacterAnimations
+  m_EditorClassIdentifier: PunkGame.Gameplay::PunkGame.Presentation.CharacterAnimations
   _animator: {fileID: 0}
   _characterMovement: {fileID: 4917107519294178779}
   _attack: {fileID: 3930990619678850485}
@@ -142,7 +142,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8fda46cf015588545b963e23c8a18336, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PunkGame.WeaponHitbox
+  m_EditorClassIdentifier: PunkGame.Gameplay::PunkGame.Combat.WeaponHitbox
   _ownerHealth: {fileID: 5049580343150955587}
   _collider: {fileID: 3598066674550015547}
   _drawGizmos: 1
@@ -256,7 +256,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4de81d4eb4cdf1546bfbf488603f9157, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PunkGame.CharacterMovement
+  m_EditorClassIdentifier: PunkGame.Gameplay::PunkGame.Characters.CharacterMovement
   _characterController: {fileID: 3684052843296520280}
   _movementSpeed: 3
   _rotationSpeed: 15
@@ -279,7 +279,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9cbe84535e714bccbb176b3064fa222b, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PunkGame.Health
+  m_EditorClassIdentifier: PunkGame.Core::PunkGame.Core.Combat.Health
   _maxHealth: 100
   _team: 1
   _debugLogs: 0
@@ -294,7 +294,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 71ec9e549b40f514c824bdd7c9ee447a, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PunkGame.CharacterDeath
+  m_EditorClassIdentifier: PunkGame.Gameplay::PunkGame.Characters.CharacterDeath
   _health: {fileID: 5049580343150955587}
   _movement: {fileID: 4917107519294178779}
   _dodge: {fileID: 0}
@@ -315,7 +315,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3dae171d0ce077c47b800a5126e7c783, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PunkGame.CharacterKnockback
+  m_EditorClassIdentifier: PunkGame.Gameplay::PunkGame.Combat.CharacterKnockback
   _health: {fileID: 5049580343150955587}
   _movement: {fileID: 4917107519294178779}
   _attack: {fileID: 0}
@@ -357,7 +357,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e6cee8e8dc52ccd4ba82956ec8b6df6f, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PunkGame.CharacterAttack
+  m_EditorClassIdentifier: PunkGame.Gameplay::PunkGame.Combat.CharacterAttack
   _hitbox: {fileID: 893117092455131818}
   _movement: {fileID: 4917107519294178779}
   _health: {fileID: 5049580343150955587}
@@ -408,7 +408,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a6910363c2be2d548a3b3660fdbe0665, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PunkGame.EnemyAIMovement
+  m_EditorClassIdentifier: PunkGame.Gameplay::PunkGame.Enemies.EnemyAIMovement
   _agent: {fileID: 953634589427702484}
   _movement: {fileID: 4917107519294178779}
   _patrolRadius: 8
@@ -433,7 +433,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 947e9dd2850055a4093289a895aa39ac, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PunkGame.EnemyBrain
+  m_EditorClassIdentifier: PunkGame.Gameplay::PunkGame.Enemies.EnemyBrain
   _movement: {fileID: 955190050730611660}
   _attack: {fileID: 3930990619678850485}
   _health: {fileID: 5049580343150955587}

@@ -318,7 +318,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9cbe84535e714bccbb176b3064fa222b, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PunkGame.Health
+  m_EditorClassIdentifier: PunkGame.Core::PunkGame.Core.Combat.Health
   _maxHealth: 100
   _team: 0
   _debugLogs: 0
@@ -333,7 +333,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e6cee8e8dc52ccd4ba82956ec8b6df6f, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PunkGame.CharacterAttack
+  m_EditorClassIdentifier: PunkGame.Gameplay::PunkGame.Combat.CharacterAttack
   _hitbox: {fileID: 5104548894171702989}
   _movement: {fileID: 7737184754329570638}
   _health: {fileID: 6553248669521378652}
@@ -537,7 +537,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8fda46cf015588545b963e23c8a18336, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PunkGame.WeaponHitbox
+  m_EditorClassIdentifier: PunkGame.Gameplay::PunkGame.Combat.WeaponHitbox
 --- !u!1001 &4295916599926973163
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -925,7 +925,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: af270325bc8a4fb3b53b5714113bcd8a, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PunkGame.AnimationEventRelay
+  m_EditorClassIdentifier: PunkGame.Gameplay::PunkGame.Presentation.AnimationEventRelay
   _animator: {fileID: 9067346247354164935}
   _attack: {fileID: 8665305152561954165}
   _movement: {fileID: 7737184754329570638}

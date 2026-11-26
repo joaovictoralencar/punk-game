@@ -47,7 +47,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9cbe84535e714bccbb176b3064fa222b, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PunkGame.Health
+  m_EditorClassIdentifier: PunkGame.Core::PunkGame.Core.Combat.Health
   _maxHealth: 100
   _team: 1
   _debugLogs: 0
@@ -89,7 +89,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7ab2c2ad5f5978d489aa2578e41c1ee5, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PunkGame.TrainingDummy
+  m_EditorClassIdentifier: PunkGame.Gameplay::PunkGame.Development.TrainingDummy
   _respawnDelay: 3
   _flashDuration: 0.12
   _flashColor: {r: 1, g: 1, b: 1, a: 1}

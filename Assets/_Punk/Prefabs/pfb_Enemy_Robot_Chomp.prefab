@@ -115,7 +115,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: af270325bc8a4fb3b53b5714113bcd8a, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PunkGame.AnimationEventRelay
+  m_EditorClassIdentifier: PunkGame.Gameplay::PunkGame.Presentation.AnimationEventRelay
   _animator: {fileID: 5045081094966905957}
   _attack: {fileID: 7649969416819567663}
   _movement: {fileID: 1772899551885579329}
@@ -222,7 +222,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4de81d4eb4cdf1546bfbf488603f9157, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PunkGame.CharacterMovement
+  m_EditorClassIdentifier: PunkGame.Gameplay::PunkGame.Characters.CharacterMovement
 --- !u!4 &2442658242978735787 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 9025663600954783537, guid: ab18b85b9ae64b64f840925ae27a2bb3, type: 3}
@@ -249,7 +249,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 21fbeb9928fe8c544a4a0fa553c1bcdd, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PunkGame.AttackHitVFX
+  m_EditorClassIdentifier: PunkGame.Gameplay::PunkGame.Presentation.AttackHitVFX
   _hitbox: {fileID: 5819623511809227568}
   _hitVFXPrefab: {fileID: 5880797563127281583, guid: 0afb2b386b84d0e4b9b23910c21f7616, type: 3}
 --- !u!114 &5819623511809227568 stripped
@@ -262,7 +262,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8fda46cf015588545b963e23c8a18336, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PunkGame.WeaponHitbox
+  m_EditorClassIdentifier: PunkGame.Gameplay::PunkGame.Combat.WeaponHitbox
 --- !u!114 &7649969416819567663 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3930990619678850485, guid: ab18b85b9ae64b64f840925ae27a2bb3, type: 3}
@@ -273,4 +273,4 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e6cee8e8dc52ccd4ba82956ec8b6df6f, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PunkGame.CharacterAttack
+  m_EditorClassIdentifier: PunkGame.Gameplay::PunkGame.Combat.CharacterAttack
