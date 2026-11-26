@@ -4,7 +4,8 @@
     "references": [
         "PunkGame.Core",
         "Unity.Cinemachine",
-        "Unity.InputSystem"
+        "Unity.InputSystem",
+        "DamageNumbersPro"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

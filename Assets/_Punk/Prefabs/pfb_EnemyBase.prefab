@@ -169,6 +169,7 @@ GameObject:
   - component: {fileID: 953634589427702484}
   - component: {fileID: 955190050730611660}
   - component: {fileID: 6709254576111282652}
+  - component: {fileID: 5645379141728090125}
   m_Layer: 7
   m_Name: pfb_EnemyBase
   m_TagString: Untagged
@@ -447,3 +448,18 @@ MonoBehaviour:
   _attackCooldown: 1
   _cooldownVariance: 0.5
   _debugLogs: 0
+--- !u!114 &5645379141728090125
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3446239181153059215}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 43152d240d740e64398589878d0484d5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: PunkGame.Gameplay::PunkGame.DamageNumbersManager
+  DamageNumber: {fileID: 4237943121127123269, guid: 0fecdd88752afbb4484203d16cf28cfa, type: 3}
+  _health: {fileID: 5049580343150955587}
+  _damageNumbersHolder: {fileID: 0}
